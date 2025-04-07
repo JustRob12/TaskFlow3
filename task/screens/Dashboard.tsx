@@ -1,12 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useStorage } from '../hooks/useStorage.ts';
 
 export default function Dashboard() {
   const navigation = useNavigation();
+  const { getItem, removeItem } = useStorage();
+  const [userName, setUserName] = useState('');
 
-  const handleLogout = () => {
-    // Add your logout logic here
+  useEffect(() => {
+    const loadUserData = async () => {
+      const userDataString = await getItem('user');
+      if (userDataString) {
+        const userData = JSON.parse(userDataString);
+        setUserName(userData.name);
+      }
+    };
+    
+    loadUserData();
+  }, []);
+
+  const handleLogout = async () => {
+    // Clear user data and token
+    await removeItem('token');
+    await removeItem('user');
     navigation.navigate('Login');
   };
 
@@ -21,7 +38,7 @@ export default function Dashboard() {
       
       <ScrollView style={styles.content}>
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>Welcome!</Text>
+          <Text style={styles.cardTitle}>Hello {userName}!</Text>
           <Text style={styles.cardText}>
             This is your dashboard. You can add more content and features here.
           </Text>

@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useStorage } from '../hooks/useStorage.ts';
-
-// Use the environment variable or fallback to a default
-const API_URL = 'http://100.30.96.219:5000/api';
+import { API_URL } from '../config.ts';
 
 export default function Register() {
   const [name, setName] = useState('');
