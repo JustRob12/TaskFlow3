@@ -3,7 +3,8 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Alert } from 'reac
 import { useNavigation } from '@react-navigation/native';
 import { useStorage } from '../hooks/useStorage.ts';
 
-const API_URL = process.env.API_URL || 'http://192.168.1.100:5000/api';
+// Use the environment variable or fallback to a default
+const API_URL = 'http://100.30.96.219:5000/api';
 
 export default function Login() {
   const [email, setEmail] = useState('');
